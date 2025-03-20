@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Appointment</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f4f4f9;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .form-group input, .form-group select, .form-group button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            margin-top: 5px;
+        }
+
+        .form-group button {
+            background: #28a745;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .form-group button:hover {
+            background: #218838;
+        }
+
+        .confirmation {
+            text-align: center;
+            font-size: 1.2rem;
+            color: green;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .error {
+            text-align: center;
+            font-size: 1.2rem;
+            color: red;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Book Appointment</h1>
+        <div id="formContainer">
+            <div class="form-group">
+                <label for="userName">Your Name</label>
+                <input type="text" id="userName" placeholder="Enter your name" />
+            </div>
+            <div class="form-group">
+                <label for="timeSlots">Available Time Slots</label>
+                <select id="timeSlots">
+                    <option value="" disabled selected>Select a time slot</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <button id="bookButton" onclick="confirmBooking()">Book Appointment</button>
+            </div>
+        </div>
+        <div id="confirmationMessage" class="confirmation" style="display: none;"></div>
+        <div id="errorMessage" class="error" style="display: none;"></div>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const academyId = urlParams.get("academyId");
+        const academyName = decodeURIComponent(urlParams.get("academyName"));
+
+        document.title = `Book Appointment - ${academyName}`;
+
+        // Fetch available slots
+        const fetchAvailableSlots = async () => {
+            try {
+                const response = await fetch(`/api/appointments/slots?academyId=${academyId}`);
+                if (!response.ok) throw new Error("Failed to fetch slots");
+                const slots = await response.json();
+                const timeSlotSelect = document.getElementById("timeSlots");
+
+                if (slots.length > 0) {
+                    slots.forEach(slot => {
+                        const option = document.createElement("option");
+                        option.value = slot;
+                        option.textContent = slot;
+                        timeSlotSelect.appendChild(option);
+                    });
+                } else {
+                    document.getElementById("formContainer").innerHTML = "<p>No available slots for this academy. Please try later.</p>";
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                document.getElementById("errorMessage").textContent = "Error fetching slots. Please try again later.";
+                document.getElementById("errorMessage").style.display = "block";
+            }
+        };
+
+        // Confirm booking
+        const confirmBooking = async () => {
+            const userName = document.getElementById("userName").value.trim();
+            const timeSlot = document.getElementById("timeSlots").value;
+
+            if (!userName || !timeSlot) {
+                alert("Please fill in all fields.");
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/appointments/book', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ academyId: parseInt(academyId, 10), userName, timeSlot }),
+                });
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(errorText || "Booking failed.");
+                }
+
+                document.getElementById("confirmationMessage").textContent = `Appointment confirmed for ${userName} at ${timeSlot} at ${academyName}.`;
+                document.getElementById("confirmationMessage").style.display = "block";
+                document.getElementById("formContainer").style.display = "none";
+            } catch (error) {
+                console.error("Error:", error);
+                document.getElementById("errorMessage").textContent = "Failed to book the appointment. Please try again.";
+                document.getElementById("errorMessage").style.display = "block";
+            }
+        };
+
+        // Initialize page
+        fetchAvailableSlots();
+    </script>
+</body>
+</html>

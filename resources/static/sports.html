@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sports Connect - Explore Sports</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f3f9ff, #d9eaff); /* Light gradient */
+            color: #333;
+        }
+
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        .sports-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 2rem auto;
+        }
+
+        .sport-item {
+            text-align: center;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .sport-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .sport-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .sport-item h3 {
+            margin: 1rem 0;
+            color: #007bff;
+            font-size: 1.2rem;
+        }
+
+        .logout-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 0.6rem 1rem;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background-color: #e60000;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background-color: #007bff;
+            color: white;
+            margin-top: 2rem;
+            box-shadow: 0px -2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        footer p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <h1>Welcome to Sports Connect</h1>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+    </header>
+
+    <!-- Sports Grid -->
+    <main>
+        <div class="sports-grid">
+            <div class="sport-item" onclick="handleSportSelection('Cricket')">
+                <img src="/page3/SportsLog/NewFolder/cricket.jpg" alt="Cricket">
+                <h3>Cricket</h3>
+            </div>
+            <div class="sport-item" onclick="handleSportSelection('Football')">
+                <img src="/page3/SportsLog/NewFolder/football.jpg" alt="Football">
+                <h3>Football</h3>
+            </div>
+            <div class="sport-item" onclick="handleSportSelection('Basketball')">
+                <img src="/page3/SportsLog/NewFolder/basketball.jpg" alt="Basketball">
+                <h3>Basketball</h3>
+            </div>
+            <div class="sport-item" onclick="handleSportSelection('Hockey')">
+                <img src="/page3/SportsLog/NewFolder/hockey.jpeg" alt="Hockey">
+                <h3>Hockey</h3>
+            </div>
+            <div class="sport-item" onclick="handleSportSelection('Badminton')">
+                <img src="/page3/SportsLog/NewFolder/badminton.jpg" alt="Badminton">
+                <h3>Badminton</h3>
+            </div>
+            <div class="sport-item" onclick="handleSportSelection('Golf')">
+                <img src="/page3/SportsLog/NewFolder/golf.jpeg" alt="Golf">
+                <h3>Golf</h3>
+            </div>
+            <div class="sport-item" onclick="handleSportSelection('Athletics')">
+                <img src="/page3/SportsLog/NewFolder/athlete.jpg" alt="Athletics">
+                <h3>Athletics</h3>
+            </div>
+            <div class="sport-item" onclick="handleSportSelection('Swimming')">
+                <img src="/page3/SportsLog/NewFolder/swimming.jpeg" alt="Swimming">
+                <h3>Swimming</h3>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Sports Connect. All rights reserved.</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Simulate user login check
+        window.onload = function() {
+            const isLoggedIn = localStorage.getItem('loggedIn');
+            if (!isLoggedIn || isLoggedIn !== 'true') {
+                alert('You must log in to access this page!');
+                window.location.href = '/login.html'; // Redirect to login page
+            }
+        };
+
+        // Logout function
+        function logout() {
+            localStorage.removeItem('loggedIn');
+            alert('You have logged out!');
+            window.location.href = '/login.html'; // Redirect to login page
+        }
+
+        // Handle sport selection
+        function handleSportSelection(sport) {
+            alert(`You selected ${sport}`);
+            // Perform operations for the selected sport
+        }
+        function handleSportSelection(sport) {
+        const userLat = localStorage.getItem("userLatitude");
+        const userLon = localStorage.getItem("userLongitude");
+
+        // Redirect to academies.html
+        window.location.href = `/academies.html?sport=${sport}&lat=${userLat}&lon=${userLon}`;
+}
+
+    </script>
+</body>
+</html>

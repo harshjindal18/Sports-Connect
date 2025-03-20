@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - SportsConnect</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('team.jpg') no-repeat center center fixed; /* Use your image here */
+            background-size: cover; /* Ensure the image covers the entire background */
+        }
+
+        header {
+            background-color: rgba(0, 123, 255, 0.8); /* Semi-transparent blue */
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box; /* Ensure padding is included in width */
+        }
+
+        input, select, button {
+            width: calc(100% - 16px); /* Adjust width to fit inside padding */
+            margin-bottom: 1rem;
+            padding: 0.8rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box; /* Include padding in width calculation */
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Register on SportsConnect</h1>
+    </header>
+    <form id="registerForm" onsubmit="registerUser(event)">
+        <h2>Create Your Account</h2>
+        <input type="text" name="name" placeholder="Full Name" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <select name="gender" required>
+            <option value="" disabled selected>Select Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+        </select>
+        <input type="number" name="age" placeholder="Age" required>
+        <input type="text" name="city" placeholder="City" required>
+        <button type="submit">Sign Up</button>
+    </form>
+    <script>
+        async function registerUser(event) {
+            event.preventDefault();
+            const formData = new FormData(document.getElementById("registerForm"));
+            const data = Object.fromEntries(formData.entries());
+        
+            try {
+                const response = await fetch('http://localhost:8080/api/users/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+        
+                if (response.status === 201) {
+                    alert("Registration successful!");
+                    window.location.href = "login.html";
+                } else if (response.status === 409) {
+                    alert("User already exists. Please log in.");
+                } else {
+                    alert("Error during registration.");
+                }
+            } catch (error) {
+                alert("An error occurred. Please try again later.");
+            }
+        }
+    </script>
+</body>
+</html>

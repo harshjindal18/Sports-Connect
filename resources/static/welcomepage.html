@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to SportsConnect</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #fff;
+            background: url('Welcome.jpeg') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        header {
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            margin-top: 0.5rem;
+        }
+
+        .header-buttons {
+            margin-top: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .header-buttons a {
+            text-decoration: none;
+            color: white;
+            background-color: #007bff;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .header-buttons a:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        .welcome-section {
+            text-align: center;
+            margin: 3rem auto;
+            max-width: 800px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+        }
+
+        .welcome-section h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #00aaff;
+        }
+
+        .welcome-section p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            color: #ddd;
+        }
+
+        .welcome-section video {
+            max-width: 100%;
+            border: 1px solid #444;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .action-buttons a {
+            text-decoration: none;
+            color: white;
+            background-color: #007bff;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .action-buttons a:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        footer p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to SportsConnect</h1>
+        <p>Your gateway to exploring sports academies and events worldwide.</p>
+        <div class="header-buttons">
+            <a href="#about-us">About Us</a>
+            <a href="#services">Services</a>
+            <a href="#sports">Sports</a>
+        </div>
+    </header>
+
+    <div class="welcome-section">
+        <h2>Stay Active, Stay Connected</h2>
+        <p>Discover sports academies, events, and news around the globe. Start your sports journey today!</p>
+        <video autoplay muted loop>
+            <source src="video1.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="action-buttons">
+            <a href="register.html">Register</a>
+            <a href="login.html">Login</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 SportsConnect. All rights reserved.</p>
+    </footer>
+</body>
+</html>
